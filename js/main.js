@@ -7,6 +7,8 @@ let timerId = null;
 let msec = 0;
 let secs = 0;
 let mins = 0;
+let hmin = 0;
+let day = 0;
 startBtn.addEventListener('click', function () {
     if (timerId !== null) {
         clearInterval(timerId);
@@ -18,8 +20,8 @@ stopBtn.addEventListener('click', function () {
 });
 resetBtn.addEventListener('click', function () {
     clearInterval(timerId);
-    timerDisplay.innerHTML = "00 : 00 : 00";
-    mins = secs = msec = 0;
+    timerDisplay.innerHTML = "00 : 00 : 00 : 00 : 00";
+    mins = secs = msec = hmin = day = 0;
 });
 
 function startTimer() {
@@ -32,14 +34,23 @@ function startTimer() {
             secs = 0;
             mins++;
         }
+        if (mins == 60) {
+            mins = 0;
+            hmin++;
+        } if (hmin == 24) {
+            hmin = 0;
+            day++
+        }
     }
 
     let msecString = msec < 10 ? `0${msec}` : msec;
     let secsString = secs < 10 ? `0${secs}` : secs;
     let minsString = mins < 10 ? `0${mins}` : mins;
+    let hminString = hmin < 10 ? `0${hmin}` : hmin;
+    let dayString = day < 10 ? `0${day}` : day;
 
 
-    timerDisplay.innerHTML = `${minsString} : ${secsString} : ${msecString}`;
+    timerDisplay.innerHTML = `${dayString}  : ${hminString} : ${minsString} : ${secsString} : ${msecString} `;
 
 }
 
